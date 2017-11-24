@@ -8,14 +8,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.example.imac.myapplication.fragment.FragmentFavourite;
 import com.example.imac.myapplication.fragment.FragmentHome;
 import com.example.imac.myapplication.fragment.FragmentNotification;
-import com.example.imac.myapplication.fragment.FragmentSearch;
 import com.example.imac.myapplication.fragment.FragmentUrgent;
-import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_urgent:
                     FragmentUrgent fragmentUrgent = new FragmentUrgent();
                     replaceFragment(fragmentUrgent);
-                    return true;
-                case R.id.navigation_search:
-                    FragmentSearch fragmentSearch = new FragmentSearch();
-                    replaceFragment(fragmentSearch);
                     return true;
                 case R.id.navigation_favorite:
                     FragmentFavourite fragmentFavourite = new FragmentFavourite();
