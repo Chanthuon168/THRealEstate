@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TH Real Estate</string>
+    <string name="title_home">Home</string>
+    <string name="title_urgent">Urgent</string>
+    <string name="title_search">Search</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_notifications">Notifications</string>
+</resources>
