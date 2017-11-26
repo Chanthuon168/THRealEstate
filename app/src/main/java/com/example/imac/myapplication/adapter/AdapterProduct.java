@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.imac.myapplication.DetailPagerActivity;
 import com.example.imac.myapplication.ProductDetailActivity;
 import com.example.imac.myapplication.R;
 import com.example.imac.myapplication.model.Product;
@@ -45,7 +46,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.MyViewHo
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         String imgUrl = products.get(position).getImageUrl();
-        String img = imgUrl.replace("&amp;","&");
+        final String img = imgUrl.replace("&amp;","&");
         Picasso.with(holder.imageView.getContext()).load(img).into(holder.imageView);
         holder.name.setText(products.get(position).getName());
         holder.price.setText(products.get(position).getPrice());
@@ -65,7 +66,8 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.MyViewHo
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, ProductDetailActivity.class);
+                Intent intent = new Intent(activity, DetailPagerActivity.class);
+                intent.putExtra("position",position);
                 intent.putExtra("product", products.get(position));
                 activity.startActivity(intent);
             }
