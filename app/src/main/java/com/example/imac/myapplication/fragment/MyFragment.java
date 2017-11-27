@@ -32,19 +32,20 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_fragment, container, false);
 
-        pagerAdapter = new MainPagerAdapter();
-        pager = (ViewPager) view.findViewById(R.id.viewpager);
-        pager.setAdapter(pagerAdapter);
-
-//        product = ((DetailPagerActivity)getActivity()).getProduct();
-        Toast.makeText(getActivity(), product.getName(),Toast.LENGTH_LONG).show();
-        LayoutInflater in = getLayoutInflater();
-        RelativeLayout v = (RelativeLayout) in.inflate(R.layout.layout, null);
-        WebView webView = v.findViewById(R.id.webView);
+//        pagerAdapter = new MainPagerAdapter();
+//        pager = (ViewPager) view.findViewById(R.id.viewpager);
+//        pager.setAdapter(pagerAdapter);
+//
+////        product = ((DetailPagerActivity)getActivity()).getProduct();
+//        LayoutInflater in = getLayoutInflater();
+//        RelativeLayout v = (RelativeLayout) in.inflate(R.layout.layout, null);
+        int id = getActivity().getIntent().getIntExtra("position", 0);
+        Toast.makeText(getActivity(), id+"",Toast.LENGTH_LONG).show();
+        WebView webView = view.findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadDataWithBaseURL("", product.getDetail(), "text/html", "UTF-8", "");
-        pagerAdapter.addView(v, 0);
-        pagerAdapter.notifyDataSetChanged();
+//        webView.loadDataWithBaseURL("", product.getDetail(), "text/html", "UTF-8", "");
+//        pagerAdapter.addView(v, 0);
+//        pagerAdapter.notifyDataSetChanged();
 
         return view;
     }
