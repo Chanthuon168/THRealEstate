@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.imac.myapplication.adapter.MainPagerAdapter;
 import com.example.imac.myapplication.adapter.MyFragmentPageAdapter;
@@ -36,6 +37,7 @@ public class DetailPagerActivity extends AppCompatActivity {
     private List<Product> products = new ArrayList<>();
     private int position;
     private TabLayout tabLayout;
+    private Product product;
 
 
     @Override
@@ -50,9 +52,11 @@ public class DetailPagerActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.viewpager);
         final List<Fragment> fragments = new ArrayList<>();
         position = getIntent().getIntExtra("position", 0);
+        product = (Product) getIntent().getSerializableExtra("product");
+//        Toast.makeText(getApplicationContext(), product.getId()+"",Toast.LENGTH_SHORT).show();
 
         ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<Product>> call = service.getProduct();
+        Call<List<Product>> call = service.getProductById(product.getId());
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -60,6 +64,7 @@ public class DetailPagerActivity extends AppCompatActivity {
                 for(int i = 0; i<products.size(); i++) {
                     Bundle b = new Bundle();
                     b.putInt("position", i);
+                    b.putSerializable("product", products.get(i));
                     fragments.add(Fragment.instantiate(DetailPagerActivity.this,MyFragment.class.getName(),b));
                 }
 
@@ -82,6 +87,11 @@ public class DetailPagerActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_righ);
     }
 
 }

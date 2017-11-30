@@ -70,6 +70,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.MyViewHo
                 intent.putExtra("position",position);
                 intent.putExtra("product", products.get(position));
                 activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

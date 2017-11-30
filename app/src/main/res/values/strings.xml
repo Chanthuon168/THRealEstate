@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">TH Real Estate</string>
-    <string name="title_home">Home</string>
-    <string name="title_urgent">Urgent</string>
-    <string name="title_search">Search</string>
-    <string name="title_favorite">Favorite</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Sruol Tinh</string>
+    <string name="title_home">ទំនិញ</string>
+    <string name="title_urgent">លក់បន្ទាន់</string>
+    <string name="title_search">ស្វែងរក</string>
+    <string name="title_favorite">ចំណាំទុក</string>
+    <string name="title_notifications">សារដំណឹង</string>
 </resources>

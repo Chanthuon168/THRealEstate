@@ -39,11 +39,13 @@ public class MyFragment extends Fragment {
 ////        product = ((DetailPagerActivity)getActivity()).getProduct();
 //        LayoutInflater in = getLayoutInflater();
 //        RelativeLayout v = (RelativeLayout) in.inflate(R.layout.layout, null);
-        int id = getActivity().getIntent().getIntExtra("position", 0);
-        Toast.makeText(getActivity(), id+"",Toast.LENGTH_LONG).show();
+        Bundle bundle = getArguments();
+        product = (Product)bundle.getSerializable("product");
+        int id = bundle.getInt("position",0);
+//        Toast.makeText(getActivity(), detail+"",Toast.LENGTH_LONG).show();
         WebView webView = view.findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
-//        webView.loadDataWithBaseURL("", product.getDetail(), "text/html", "UTF-8", "");
+        webView.loadDataWithBaseURL("", product.getDetail(), "text/html", "UTF-8", "");
 //        pagerAdapter.addView(v, 0);
 //        pagerAdapter.notifyDataSetChanged();
 

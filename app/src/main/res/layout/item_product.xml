@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="មើលបន្ថែម"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/tertiary_text_dark" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -114,9 +114,9 @@
         <View
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#e2e1e1"
+            android:background="#acacac"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="0.5dp"/>
 
         <LinearLayout
             android:weightSum="3"
@@ -142,7 +142,7 @@
                     android:maxLines="1"
                     android:textSize="15sp"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:text="ចូលចិត្ត"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -168,7 +168,7 @@
                     android:maxLines="1"
                     android:textSize="15sp"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:text="មាតិយោបល់"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -194,7 +194,7 @@
                     android:maxLines="1"
                     android:textSize="15sp"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:text="ចែកចាយ"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -205,8 +205,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#cacaca" />
+            android:layout_height="0.5dp"
+            android:background="#afafaf" />
 
     </LinearLayout>
 
