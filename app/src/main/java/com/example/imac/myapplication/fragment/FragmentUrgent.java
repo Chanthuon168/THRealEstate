@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,10 +14,13 @@ import android.widget.Toast;
 
 import com.example.imac.myapplication.ApiClient;
 import com.example.imac.myapplication.ApiInterface;
+import com.example.imac.myapplication.EndRecyclerOnScrollListener;
 import com.example.imac.myapplication.EndlessRecyclerOnScrollListener;
 import com.example.imac.myapplication.OnLoadMoreListener;
 import com.example.imac.myapplication.R;
+import com.example.imac.myapplication.TestActivity;
 import com.example.imac.myapplication.adapter.AdapterProductItem;
+import com.example.imac.myapplication.adapter.MyAdapter;
 import com.example.imac.myapplication.model.Contact;
 import com.example.imac.myapplication.model.Video;
 
@@ -33,67 +37,51 @@ import retrofit2.Response;
  */
 
 public class FragmentUrgent extends Fragment {
-    private List<Contact> contacts;
-    private AdapterProductItem contactAdapter;
-    private Random random;
+    private RecyclerView mRecyclerView;
+    private GridLayoutManager mLayoutManager;
+    private MyAdapter mAdapter;
     int videoPage = 1;
     List<Video> videoList;
     private Video video;
     private List<Video> videos = new ArrayList<>();
-    private LinearLayoutManager layoutManager;
+    private Handler handler;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_urgent, container, false);
 
+        handler = new Handler();
         videoList = new ArrayList<>();
 
         getVideoAll(videoPage);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        contactAdapter = new AdapterProductItem(recyclerView, videoList, getActivity());
-        recyclerView.setAdapter(contactAdapter);
+        mRecyclerView = view.findViewById(R.id.my_recycler_view);
+        mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new MyAdapter(videoList, mRecyclerView);
+        mRecyclerView.setAdapter(mAdapter);
 
-        //set load more listener for the RecyclerView adapter
-//        contactAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-//                if (contacts.size() <= 20) {
-//                    contacts.add(null);
-//                    contactAdapter.notifyItemInserted(contacts.size() - 1);
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            contacts.remove(contacts.size() - 1);
-//                            contactAdapter.notifyItemRemoved(contacts.size());
-//
-//                            //Generating more data
-//                            int index = contacts.size();
-//                            int end = index + 10;
-//                            for (int i = index; i < end; i++) {
-//                                Contact contact = new Contact();
-//                                contact.setPhone(phoneNumberGenerating());
-//                                contact.setEmail("DevExchanges" + i + "@gmail.com");
-//                                contacts.add(contact);
-//                            }
-//                            contactAdapter.notifyDataSetChanged();
-//                            contactAdapter.setLoaded();
-//                        }
-//                    }, 5000);
-//                } else {
-//                    Toast.makeText(getActivity(), "Loading data completed", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-
-        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+        mRecyclerView.addOnScrollListener(new EndRecyclerOnScrollListener(mLayoutManager) {
             @Override
-            public void onLoadMore(int page) {
+            public void onLoadMore(final int current_page) {
+                videoList.add(null);
+                mAdapter.notifyItemInserted(videoList.size());
+
                 videoPage++;
-                getVideoAll(page);
+                getVideoAll(current_page);
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //remove progress item
+                        videoList.remove(videoList.size() - 1);
+                        mAdapter.notifyItemRemoved(videoList.size());
+                        //add items one by one
+                        //or you can add all at once but do not forget to call mAdapter.notifyDataSetChanged();
+                    }
+                }, 2500);
             }
         });
 
@@ -111,7 +99,7 @@ public class FragmentUrgent extends Fragment {
                 videos = response.body();
                 if (videos.size() > 0) {
                     videoList.addAll(response.body());
-                    contactAdapter.notifyItemRangeInserted(contactAdapter.getItemCount(), videoList.size() - 1);
+                    mAdapter.notifyItemRangeInserted(mAdapter.getItemCount(), videoList.size() - 1);
                 }
             }
 
